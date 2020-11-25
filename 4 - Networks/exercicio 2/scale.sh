@@ -1,0 +1,1 @@
+docker-compose up -d --scale php-fpm=3

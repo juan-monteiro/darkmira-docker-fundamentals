@@ -1,0 +1,2 @@
+docker stop alpine_apache
+docker rm alpine_apache

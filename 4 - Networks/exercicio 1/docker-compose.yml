@@ -1,0 +1,38 @@
+version: "3.8"
+services: 
+  mariadb:
+    image: mariadb:10.5
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+    networks: 
+      - wp_db
+      - admin_db
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    environment: 
+      - MYSQL_ROOT_PASSWORD=password
+      - PMA_HOSTS=mariadb
+    ports: 
+      - 8081:80
+    networks: 
+      - admin_db
+      - admin_public
+  wordpress:
+    image: wordpress:5.5-apache
+    environment: 
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=password
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_TABLE_PREFIX=wp_
+    ports: 
+      - 8080:80
+    networks: 
+     - wp_db
+networks: 
+  wp_db:
+    internal: true
+  admin_db:
+    internal: true
+  admin_public:
+    internal: false

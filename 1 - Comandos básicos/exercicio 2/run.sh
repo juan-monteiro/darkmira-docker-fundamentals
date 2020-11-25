@@ -1,0 +1,1 @@
+docker run -p 30000:80 -v "$PWD"/php:/var/www/html --name alpine_apache -d php:apache
